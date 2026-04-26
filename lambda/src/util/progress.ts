@@ -4,7 +4,9 @@ import { EpisodeProgress } from '../types';
 
 const TABLE_NAME = process.env.DYNAMODB_TABLE || 'HoerspielProgress';
 
-const client = new DynamoDBClient({});
+const DYNAMODB_REGION = process.env.DYNAMODB_REGION || 'eu-central-1';
+
+const client = new DynamoDBClient({ region: DYNAMODB_REGION });
 const docClient = DynamoDBDocumentClient.from(client);
 
 export async function getEpisodeProgress(userId: string, episodeId: string): Promise<EpisodeProgress | null> {
