@@ -1,0 +1,86 @@
+{
+  "type": "APL",
+  "version": "2024.2",
+  "theme": "dark",
+  "mainTemplate": {
+    "parameters": ["payload"],
+    "items": [
+      {
+        "type": "Container",
+        "width": "100vw",
+        "height": "100vh",
+        "direction": "column",
+        "items": [
+          {
+            "type": "Container",
+            "width": "100%",
+            "height": "60dp",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "items": [
+              {
+                "type": "Text",
+                "text": "Hörspiel Player",
+                "fontSize": "28dp",
+                "fontWeight": "bold",
+                "color": "#FFFFFF"
+              }
+            ]
+          },
+          {
+            "type": "Container",
+            "width": "100%",
+            "grow": 1,
+            "paddingLeft": "24dp",
+            "paddingRight": "24dp",
+            "items": [
+              {
+                "type": "GridSequence",
+                "width": "100%",
+                "height": "100%",
+                "childWidths": ["33%", "33%", "33%"],
+                "childHeight": "auto",
+                "scrollDirection": "vertical",
+                "data": "${payload.seriesData.series}",
+                "items": [
+                  {
+                    "type": "TouchWrapper",
+                    "onPress": {
+                      "type": "SendEvent",
+                      "arguments": ["SelectSeries", "${data.id}"]
+                    },
+                    "item": {
+                      "type": "Container",
+                      "alignItems": "center",
+                      "paddingBottom": "16dp",
+                      "paddingTop": "8dp",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "source": "${data.coverUrl}",
+                          "width": "200dp",
+                          "height": "200dp",
+                          "borderRadius": "12dp",
+                          "scale": "best-fill"
+                        },
+                        {
+                          "type": "Text",
+                          "text": "${data.title}",
+                          "fontSize": "18dp",
+                          "color": "#FFFFFF",
+                          "textAlign": "center",
+                          "paddingTop": "8dp",
+                          "maxLines": 2
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

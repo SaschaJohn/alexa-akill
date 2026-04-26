@@ -1,0 +1,29 @@
+{
+  "series": [
+    {
+      "id": "tkkg",
+      "title": "TKKG",
+      "cover": "covers/tkkg.jpg",
+      "episodes": [
+        {
+          "id": "tkkg-001",
+          "number": 1,
+          "title": "Die Jagd nach den Millionendieben",
+          "file": "tkkg/001.mp3"
+        },
+        {
+          "id": "tkkg-002",
+          "number": 2,
+          "title": "Der blinde Hellseher",
+          "file": "tkkg/002.mp3"
+        },
+        {
+          "id": "tkkg-003",
+          "number": 3,
+          "title": "Das leere Grab im Moor",
+          "file": "tkkg/003.mp3"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "de-DE": {
+          "summary": "Hörspiel Player für Echo Show",
+          "examplePhrases": [
+            "Alexa, öffne Hörspiel Player",
+            "Alexa, starte Hörspiel Player"
+          ],
+          "name": "Hörspiel Player",
+          "description": "Spielt Hörspiele ab und zeigt Serien und Folgen auf dem Echo Show."
+        }
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "Private skill for personal use.",
+      "category": "MUSIC_AND_AUDIO",
+      "distributionCountries": ["DE"]
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/dist"
+        },
+        "interfaces": [
+          {
+            "type": "AUDIO_PLAYER"
+          },
+          {
+            "type": "ALEXA_PRESENTATION_APL",
+            "supportedViewports": [
+              {
+                "mode": "HUB",
+                "shape": "RECTANGLE",
+                "minWidth": 1024,
+                "maxWidth": 1280,
+                "minHeight": 600,
+                "maxHeight": 800
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "locales": {
+        "de-DE": {
+          "privacyPolicyUrl": "",
+          "termsOfUseUrl": ""
+        }
+      },
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false
+    }
+  }
+}

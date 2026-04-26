@@ -1,0 +1,115 @@
+{
+  "type": "APL",
+  "version": "2024.2",
+  "theme": "dark",
+  "mainTemplate": {
+    "parameters": ["payload"],
+    "items": [
+      {
+        "type": "Container",
+        "width": "100vw",
+        "height": "100vh",
+        "direction": "column",
+        "items": [
+          {
+            "type": "Container",
+            "width": "100%",
+            "height": "70dp",
+            "direction": "row",
+            "alignItems": "center",
+            "paddingLeft": "24dp",
+            "paddingRight": "24dp",
+            "items": [
+              {
+                "type": "TouchWrapper",
+                "onPress": {
+                  "type": "SendEvent",
+                  "arguments": ["GoBack"]
+                },
+                "item": {
+                  "type": "Text",
+                  "text": "< Zurück",
+                  "fontSize": "20dp",
+                  "color": "#00CAFF"
+                }
+              },
+              {
+                "type": "Text",
+                "text": "${payload.episodeData.seriesTitle}",
+                "fontSize": "26dp",
+                "fontWeight": "bold",
+                "color": "#FFFFFF",
+                "grow": 1,
+                "textAlign": "center"
+              },
+              {
+                "type": "TouchWrapper",
+                "onPress": {
+                  "type": "SendEvent",
+                  "arguments": ["ToggleFilter", "${payload.episodeData.seriesId}"]
+                },
+                "item": {
+                  "type": "Text",
+                  "text": "${payload.episodeData.filterLabel}",
+                  "fontSize": "16dp",
+                  "color": "#00CAFF"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Sequence",
+            "width": "100%",
+            "grow": 1,
+            "paddingLeft": "24dp",
+            "paddingRight": "24dp",
+            "scrollDirection": "vertical",
+            "data": "${payload.episodeData.episodes}",
+            "items": [
+              {
+                "type": "TouchWrapper",
+                "onPress": {
+                  "type": "SendEvent",
+                  "arguments": ["PlayEpisode", "${data.id}", "${data.seriesId}"]
+                },
+                "item": {
+                  "type": "Container",
+                  "direction": "row",
+                  "width": "100%",
+                  "height": "60dp",
+                  "alignItems": "center",
+                  "paddingLeft": "12dp",
+                  "paddingRight": "12dp",
+                  "items": [
+                    {
+                      "type": "Text",
+                      "text": "${data.played ? '✓' : '●'}",
+                      "fontSize": "18dp",
+                      "color": "${data.played ? '#666666' : '#00CAFF'}",
+                      "width": "30dp"
+                    },
+                    {
+                      "type": "Text",
+                      "text": "${data.number}.",
+                      "fontSize": "18dp",
+                      "color": "${data.played ? '#666666' : '#FFFFFF'}",
+                      "width": "40dp"
+                    },
+                    {
+                      "type": "Text",
+                      "text": "${data.title}",
+                      "fontSize": "18dp",
+                      "color": "${data.played ? '#666666' : '#FFFFFF'}",
+                      "grow": 1,
+                      "maxLines": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

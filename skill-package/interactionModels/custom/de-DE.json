@@ -1,0 +1,56 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "hörspiel player",
+      "intents": [
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "SelectSeriesIntent",
+          "slots": [
+            {
+              "name": "seriesName",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "spiele {seriesName}",
+            "zeige {seriesName}",
+            "öffne {seriesName}",
+            "{seriesName}"
+          ]
+        }
+      ]
+    }
+  }
+}
