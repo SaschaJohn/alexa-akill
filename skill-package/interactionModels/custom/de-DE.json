@@ -47,7 +47,7 @@
             "spiele {seriesName}",
             "zeige {seriesName}",
             "öffne {seriesName}",
-            "{seriesName}"
+            "starte {seriesName}"
           ]
         }
       ]
