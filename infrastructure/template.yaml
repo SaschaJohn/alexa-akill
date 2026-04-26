@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Hörspiel Player - DynamoDB + S3
+
+Parameters:
+  BucketName:
+    Type: String
+    Default: hoerspiel-skill-media
+    Description: S3 bucket name for MP3s and cover images
+
+Resources:
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins: ['*']
+            AllowedMethods: [GET]
+            AllowedHeaders: ['*']
+
+  MediaBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MediaBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub '${MediaBucket.Arn}/*'
+
+  ProgressTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: HoerspielProgress
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: episodeId
+          AttributeType: S
+        - AttributeName: seriesEpisodeKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: episodeId
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: SeriesIndex
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            - AttributeName: seriesEpisodeKey
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
+Outputs:
+  MediaBucketUrl:
+    Description: S3 bucket base URL for Lambda env var S3_BASE_URL
+    Value: !Sub 'https://${MediaBucket}.s3.${AWS::Region}.amazonaws.com'
+
+  ProgressTableName:
+    Description: DynamoDB table name for Lambda env var DYNAMODB_TABLE
+    Value: !Ref ProgressTable

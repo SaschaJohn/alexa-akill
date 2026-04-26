@@ -1,5 +1,5 @@
 import { Catalog, Series, Episode } from '../types';
-import catalogData from '../../content/series.json';
+import catalogData from '../content/series.json';
 
 const S3_BASE_URL = process.env.S3_BASE_URL || 'https://hoerspiel-skill-media.s3.eu-central-1.amazonaws.com';
 
