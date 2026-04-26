@@ -5,3 +5,5 @@ dist/
 *.d.ts
 !ask-resources.json
 .DS_Store
+extracted-covers/
+package-lock.json

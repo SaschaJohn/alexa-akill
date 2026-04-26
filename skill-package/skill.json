@@ -39,9 +39,7 @@
             ]
           }
         ],
-        "endpoint": {
-          "uri": "arn:aws:lambda:eu-west-1:876225477908:function:ask-hrspielplayer-default-default-1777204355075"
-        }
+        "endpoint": {}
       }
     },
     "manifestVersion": "1.0",

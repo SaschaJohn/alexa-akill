@@ -1,4 +1,4 @@
-import { Catalog, Series, Episode } from '../types';
+import { Catalog, Episode, Series } from '../types';
 import catalogData from '../content/series.json';
 
 const S3_BASE_URL = process.env.S3_BASE_URL || 'https://hoerspiel-skill-media.s3.eu-central-1.amazonaws.com';
@@ -40,5 +40,10 @@ export function resolveAudioUrl(file: string): string {
 }
 
 export function resolveCoverUrl(cover: string): string {
+  return `${S3_BASE_URL}/${cover}`;
+}
+
+export function resolveEpisodeCoverUrl(episode: Episode, series: Series): string {
+  const cover = episode.cover || series.cover;
   return `${S3_BASE_URL}/${cover}`;
 }

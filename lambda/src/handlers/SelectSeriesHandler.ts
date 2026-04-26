@@ -1,6 +1,6 @@
 import { HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
-import { getSeriesById } from '../util/content';
+import { getSeriesById, resolveEpisodeCoverUrl } from '../util/content';
 import { getSeriesProgress } from '../util/progress';
 import { supportsAPL, renderAPL } from '../util/apl';
 import EpisodeListTemplate from '../apl/EpisodeListTemplate.json';
@@ -31,6 +31,7 @@ export async function showEpisodeList(
       number: e.number,
       title: e.title,
       played: playedSet.has(e.id),
+      coverUrl: resolveEpisodeCoverUrl(e, series),
     }))
     .filter(e => showAll || !e.played);
 

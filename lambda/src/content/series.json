@@ -6,22 +6,53 @@
       "cover": "covers/tkkg.jpg",
       "episodes": [
         {
-          "id": "tkkg-001",
-          "number": 1,
-          "title": "Die Jagd nach den Millionendieben",
-          "file": "tkkg/001.mp3"
+          "id": "tkkg-004",
+          "number": 4,
+          "title": "Das Paket mit dem Totenkopf",
+          "file": "TKKG/TKKG - Folge 004 - Das Paket mit dem Totenkopf.mp3",
+          "cover": "covers/tkkg-004.jpg"
         },
         {
-          "id": "tkkg-002",
-          "number": 2,
-          "title": "Der blinde Hellseher",
-          "file": "tkkg/002.mp3"
+          "id": "tkkg-005",
+          "number": 5,
+          "title": "Das Phantom auf dem Feuerstuhl",
+          "file": "TKKG/TKKG - Folge 005 - Das Phantom auf dem Feuerstuhl.mp3",
+          "cover": "covers/tkkg-005.jpg"
         },
         {
-          "id": "tkkg-003",
-          "number": 3,
-          "title": "Das leere Grab im Moor",
-          "file": "tkkg/003.mp3"
+          "id": "tkkg-006",
+          "number": 6,
+          "title": "Angst in der 9a",
+          "file": "TKKG/TKKG - Folge 006 - Angst in der 9a.mp3",
+          "cover": "covers/tkkg-006.jpg"
+        },
+        {
+          "id": "tkkg-007",
+          "number": 7,
+          "title": "Rätsel um die alte Villa",
+          "file": "TKKG/TKKG - Folge 007 - Rätsel um die alte Villa.mp3",
+          "cover": "covers/tkkg-007.jpg"
+        },
+        {
+          "id": "tkkg-008",
+          "number": 8,
+          "title": "Auf der Spur der Vogeljäger",
+          "file": "TKKG/TKKG - Folge 008 - Auf der Spur der Vogeljäger.mp3",
+          "cover": "covers/tkkg-008.jpg"
+        },
+        {
+          "id": "tkkg-009",
+          "number": 9,
+          "title": "Abenteuer im Ferienlager",
+          "file": "TKKG/TKKG - Folge 009 - Abenteuer im Ferienlager.mp3",
+          "cover": "covers/tkkg-009.jpg"
+        },
+        {
+          "id": "tkkg-010",
+          "number": 10,
+          "title": "Alarm im Zirkus Sarani",
+          "file": "TKKG/TKKG - Folge 010 - Alarm im Zirkus Sarani.mp3",
+          "cover": "covers/tkkg-010.jpg"
         }
       ]
     }

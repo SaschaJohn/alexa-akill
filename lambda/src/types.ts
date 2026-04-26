@@ -3,6 +3,7 @@ export interface Episode {
   number: number;
   title: string;
   file: string;
+  cover?: string;
 }
 
 export interface Series {
