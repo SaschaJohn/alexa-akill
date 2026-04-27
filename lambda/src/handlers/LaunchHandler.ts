@@ -26,6 +26,7 @@ export const LaunchHandler: RequestHandler = {
 
     let resumeData: { episodeId: string; title: string; seriesTitle: string; coverUrl: string } | null = null;
 
+    // First priority: check what this specific device was playing last
     const deviceState = await getDeviceState(userId, deviceId);
 
     if (deviceState && deviceState.offsetMs > 0) {
@@ -40,6 +41,8 @@ export const LaunchHandler: RequestHandler = {
       }
     }
 
+    // Second priority: fall back to the most recently played episode across all devices
+    // This ensures a user who switches devices still gets a resume suggestion
     if (!resumeData) {
       const lastPlaying = await getLastPlayingEpisode(userId);
       if (lastPlaying && lastPlaying.offsetMs > 0) {

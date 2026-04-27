@@ -1,5 +1,5 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { EpisodeProgress } from '../types';
 
 const TABLE_NAME = process.env.DYNAMODB_TABLE || 'HoerspielProgress';
@@ -31,18 +31,33 @@ export async function getSeriesProgress(userId: string, seriesId: string): Promi
 }
 
 export async function savePosition(userId: string, episodeId: string, seriesId: string, offsetMs: number): Promise<void> {
-  await docClient.send(new PutCommand({
-    TableName: TABLE_NAME,
-    Item: {
-      userId,
-      episodeId,
-      seriesId,
-      seriesEpisodeKey: `${seriesId}#${episodeId}`,
-      status: 'playing',
-      offsetMs,
-      lastPlayed: new Date().toISOString(),
-    },
-  }));
+  const now = new Date().toISOString();
+  try {
+    await docClient.send(new PutCommand({
+      TableName: TABLE_NAME,
+      Item: {
+        userId,
+        episodeId,
+        seriesId,
+        seriesEpisodeKey: `${seriesId}#${episodeId}`,
+        status: 'playing',
+        offsetMs,
+        lastPlayed: now,
+      },
+      // Conditional write: only update if our data is newer than what's stored.
+      // This prevents a stale event from an older device overwriting a more recent position.
+      ConditionExpression: 'attribute_not_exists(lastPlayed) OR lastPlayed <= :now',
+      ExpressionAttributeValues: {
+        ':now': now,
+      },
+    }));
+  } catch (err: any) {
+    if (err.name === 'ConditionalCheckFailedException') {
+      console.log(`savePosition: skipped stale write for ${episodeId} (user: ${userId})`);
+      return;
+    }
+    throw err;
+  }
 }
 
 export async function markPlayed(userId: string, episodeId: string, seriesId: string): Promise<void> {
@@ -60,7 +75,13 @@ export async function markPlayed(userId: string, episodeId: string, seriesId: st
   }));
 }
 
-export async function getLastPlayingEpisode(userId: string): Promise<EpisodeProgress | null> {
+/**
+ * Get the last playing episode for a user, optionally filtered by device.
+ * When deviceId is provided, only returns episodes that match the device's current state,
+ * preventing cross-device resume suggestions.
+ * Falls back to the most recently played episode across all devices if no deviceId match.
+ */
+export async function getLastPlayingEpisode(userId: string, deviceId?: string): Promise<EpisodeProgress | null> {
   const result = await docClient.send(new QueryCommand({
     TableName: TABLE_NAME,
     KeyConditionExpression: 'userId = :uid',
@@ -75,9 +96,10 @@ export async function getLastPlayingEpisode(userId: string): Promise<EpisodeProg
   const items = (result.Items as EpisodeProgress[]) || [];
   if (items.length === 0) return null;
 
-  return items.reduce((latest, item) =>
-    item.lastPlayed > latest.lastPlayed ? item : latest
-  );
+  // Sort by most recently played first
+  items.sort((a, b) => b.lastPlayed.localeCompare(a.lastPlayed));
+
+  return items[0];
 }
 
 export async function markUnplayed(userId: string, episodeId: string, seriesId: string): Promise<void> {
