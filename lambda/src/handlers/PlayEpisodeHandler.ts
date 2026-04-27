@@ -2,12 +2,13 @@ import { HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 import { getEpisodeById, resolveAudioUrl, resolveCoverUrl } from '../util/content';
 import { getEpisodeProgress } from '../util/progress';
+import { saveDeviceState } from '../util/device-state';
 
 export async function playEpisode(
   handlerInput: HandlerInput,
   episodeId: string
 ): Promise<Response> {
-  const result = getEpisodeById(episodeId);
+  const result = await getEpisodeById(episodeId);
   if (!result) {
     return handlerInput.responseBuilder
       .speak('Folge nicht gefunden.')
@@ -21,8 +22,11 @@ export async function playEpisode(
   const userId = handlerInput.requestEnvelope.session?.user?.userId
     || handlerInput.requestEnvelope.context.System.user?.userId
     || '';
+  const deviceId = handlerInput.requestEnvelope.context.System.device?.deviceId || 'unknown';
   const progress = await getEpisodeProgress(userId, episodeId);
   const offsetMs = progress?.status === 'playing' ? progress.offsetMs : 0;
+
+  await saveDeviceState(userId, deviceId, episode.id, series.id, offsetMs);
 
   const token = JSON.stringify({
     episodeId: episode.id,

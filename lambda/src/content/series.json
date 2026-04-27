@@ -6,6 +6,12 @@
       "cover": "covers/tkkg.jpg",
       "episodes": [
         {
+          "id": "tkkg-003",
+          "number": 3,
+          "title": "Das leere Grab im Moor",
+          "file": "TKKG/TKKG - Folge 003 - Das leere Grab im Moor.mp3"
+        },
+        {
           "id": "tkkg-004",
           "number": 4,
           "title": "Das Paket mit dem Totenkopf",
@@ -53,6 +59,186 @@
           "title": "Alarm im Zirkus Sarani",
           "file": "TKKG/TKKG - Folge 010 - Alarm im Zirkus Sarani.mp3",
           "cover": "covers/tkkg-010.jpg"
+        },
+        {
+          "id": "tkkg-011",
+          "number": 11,
+          "title": "Die Falschmünzer vom Mäuseweg",
+          "file": "TKKG/TKKG - Folge 011 - Die Falschmünzer vom Mäuseweg.mp3"
+        },
+        {
+          "id": "tkkg-012",
+          "number": 12,
+          "title": "Nachts, wenn der Feuerteufel kommt",
+          "file": "TKKG/TKKG - Folge 012 - Nachts, wenn der Feuerteufel kommt.mp3"
+        },
+        {
+          "id": "tkkg-013",
+          "number": 13,
+          "title": "Die Bettelmönche aus Atlantis",
+          "file": "TKKG/TKKG - Folge 013 - Die Bettelmönche aus Atlantis.mp3"
+        },
+        {
+          "id": "tkkg-014",
+          "number": 14,
+          "title": "Der Schlangenmensch",
+          "file": "TKKG/TKKG - Folge 014 - Der Schlangenmensch.mp3"
+        },
+        {
+          "id": "tkkg-015",
+          "number": 15,
+          "title": "Ufos in Bad Finkenstein",
+          "file": "TKKG/TKKG - Folge 015 - Ufos in Bad Finkenstein.mp3"
+        },
+        {
+          "id": "tkkg-016",
+          "number": 16,
+          "title": "X7 antwortet nicht",
+          "file": "TKKG/TKKG - Folge 016 - X7 antwortet nicht.mp3"
+        },
+        {
+          "id": "tkkg-017",
+          "number": 17,
+          "title": "Die Doppelgängerin",
+          "file": "TKKG/TKKG - Folge 017 - Die Doppelgängerin.mp3"
+        },
+        {
+          "id": "tkkg-018",
+          "number": 18,
+          "title": "Hexenjagd in Lerchenbach",
+          "file": "TKKG/TKKG - Folge 018 - Hexenjagd in Lerchenbach.mp3"
+        },
+        {
+          "id": "tkkg-019",
+          "number": 19,
+          "title": "Der Schatz in der Drachenhöhle",
+          "file": "TKKG/TKKG - Folge 019 - Der Schatz in der Drachenhöhle.mp3"
+        },
+        {
+          "id": "tkkg-020",
+          "number": 20,
+          "title": "Das Geheimnis der chinesischen Vase",
+          "file": "TKKG/TKKG - Folge 020 - Das Geheimnis der chinesischen Vase.mp3"
+        },
+        {
+          "id": "tkkg-021",
+          "number": 21,
+          "title": "Die Rache des Bombenlegers",
+          "file": "TKKG/TKKG - Folge 021 - Die Rache des Bombenlegers.mp3"
+        },
+        {
+          "id": "tkkg-022",
+          "number": 22,
+          "title": "In den Klauen des Tigers",
+          "file": "TKKG/TKKG - Folge 022 - In den Klauen des Tigers.mp3"
+        },
+        {
+          "id": "tkkg-023",
+          "number": 23,
+          "title": "Kampf der Spione",
+          "file": "TKKG/TKKG - Folge 023 - Kampf der Spione.mp3"
+        },
+        {
+          "id": "tkkg-024",
+          "number": 24,
+          "title": "Gefährliche Diamanten",
+          "file": "TKKG/TKKG - Folge 024 - Gefährliche Diamanten.mp3"
+        },
+        {
+          "id": "tkkg-025",
+          "number": 25,
+          "title": "Die Stunde der schwarzen Maske",
+          "file": "TKKG/TKKG - Folge 025 - Die Stunde der schwarzen Maske.mp3"
+        },
+        {
+          "id": "tkkg-026",
+          "number": 26,
+          "title": "Das Geiseldrama",
+          "file": "TKKG/TKKG - Folge 026 - Das Geiseldrama.mp3"
+        },
+        {
+          "id": "tkkg-027",
+          "number": 27,
+          "title": "Banditen im Palasthotel",
+          "file": "TKKG/TKKG - Folge 027 - Banditen im Palasthotel.mp3"
+        },
+        {
+          "id": "tkkg-028",
+          "number": 28,
+          "title": "Verrat im Höllental",
+          "file": "TKKG/TKKG - Folge 028 - Verrat im Höllental.mp3"
+        },
+        {
+          "id": "tkkg-029",
+          "number": 29,
+          "title": "Hundediebe kennen keine Gnade",
+          "file": "TKKG/TKKG - Folge 029 - Hundediebe kennen keine Gnade.mp3"
+        },
+        {
+          "id": "tkkg-030",
+          "number": 30,
+          "title": "Die Mafia kommt zur Geisterstunde",
+          "file": "TKKG/TKKG - Folge 030 - Die Mafia kommt zur Geisterstunde.mp3"
+        },
+        {
+          "id": "tkkg-031",
+          "number": 31,
+          "title": "Die Entführung in der Mondscheingasse",
+          "file": "TKKG/TKKG - Folge 031 - Die Entführung in der Mondscheingasse.mp3"
+        },
+        {
+          "id": "tkkg-032",
+          "number": 32,
+          "title": "Wilddiebe im Teufelsmoor",
+          "file": "TKKG/TKKG - Folge 032 - Wilddiebe im Teufelsmoor.mp3"
+        },
+        {
+          "id": "tkkg-033",
+          "number": 33,
+          "title": "Wer raubte das Millionenpferd",
+          "file": "TKKG/TKKG - Folge 033 - Wer raubte das Millionenpferd.mp3"
+        },
+        {
+          "id": "tkkg-034",
+          "number": 34,
+          "title": "Vampir der Autobahn",
+          "file": "TKKG/TKKG - Folge 034 - Vampir der Autobahn.mp3"
+        },
+        {
+          "id": "tkkg-035",
+          "number": 35,
+          "title": "Die Nacht des Überfalls",
+          "file": "TKKG/TKKG - Folge 035 - Die Nacht des Überfalls.mp3"
+        },
+        {
+          "id": "tkkg-036",
+          "number": 36,
+          "title": "Das Geschenk des Bösen",
+          "file": "TKKG/TKKG - Folge 036 - Das Geschenk des Bösen.mp3"
+        },
+        {
+          "id": "tkkg-037",
+          "number": 37,
+          "title": "Der letzte Schuss",
+          "file": "TKKG/TKKG - Folge 037 - Der letzte Schuss.mp3"
+        },
+        {
+          "id": "tkkg-038",
+          "number": 38,
+          "title": "Die weiße Schmuggler-Yacht",
+          "file": "TKKG/TKKG - Folge 038 - Die weiße Schmuggler-Yacht.mp3"
+        },
+        {
+          "id": "tkkg-039",
+          "number": 39,
+          "title": "Die Gift-Party",
+          "file": "TKKG/TKKG - Folge 039 - Die Gift-Party.mp3"
+        },
+        {
+          "id": "tkkg-040",
+          "number": 40,
+          "title": "Duell im Morgengrauen",
+          "file": "TKKG/TKKG - Folge 040 - Duell im Morgengrauen.mp3"
         }
       ]
     }

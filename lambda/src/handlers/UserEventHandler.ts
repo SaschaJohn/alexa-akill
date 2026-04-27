@@ -21,6 +21,9 @@ export const UserEventHandler: RequestHandler = {
       case 'PlayEpisode':
         return playEpisode(handlerInput, args[1]);
 
+      case 'ResumeDevice':
+        return playEpisode(handlerInput, args[1]);
+
       case 'GoBack':
         return LaunchHandler.handle(handlerInput);
 

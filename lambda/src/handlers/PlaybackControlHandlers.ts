@@ -1,7 +1,9 @@
 import { HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
-import { getEpisodeById, getNextEpisode, getPreviousEpisode } from '../util/content';
+import { resolveAudioUrl, resolveCoverUrl, getEpisodeById } from '../util/content';
 import { playEpisode } from './PlayEpisodeHandler';
+
+const SEEK_OFFSET_MS = 30_000;
 
 function getAudioPlayerToken(handlerInput: HandlerInput): { episodeId: string; seriesId: string; number: number } | null {
   try {
@@ -10,6 +12,49 @@ function getAudioPlayerToken(handlerInput: HandlerInput): { episodeId: string; s
   } catch {
     return null;
   }
+}
+
+export async function seekByOffset(handlerInput: HandlerInput, deltaMs: number): Promise<Response> {
+  const tokenData = getAudioPlayerToken(handlerInput);
+  if (!tokenData) {
+    return handlerInput.responseBuilder.getResponse();
+  }
+
+  const audioPlayer = handlerInput.requestEnvelope.context.AudioPlayer;
+  const currentOffsetMs = audioPlayer?.offsetInMilliseconds || 0;
+  const newOffsetMs = Math.max(0, currentOffsetMs + deltaMs);
+
+  const result = await getEpisodeById(tokenData.episodeId);
+  if (!result) {
+    return handlerInput.responseBuilder.getResponse();
+  }
+
+  const { series, episode } = result;
+  const coverUrl = resolveCoverUrl(series.cover);
+
+  const token = JSON.stringify({
+    episodeId: episode.id,
+    seriesId: series.id,
+    number: episode.number,
+  });
+
+  return handlerInput.responseBuilder
+    .addAudioPlayerPlayDirective(
+      'REPLACE_ALL',
+      resolveAudioUrl(episode.file),
+      token,
+      newOffsetMs,
+      undefined,
+      {
+        title: episode.title,
+        subtitle: `${series.title} - Folge ${episode.number}`,
+        art: {
+          contentDescription: series.title,
+          sources: [{ url: coverUrl }],
+        },
+      }
+    )
+    .getResponse();
 }
 
 export const PauseHandler: RequestHandler = {
@@ -48,19 +93,7 @@ export const NextHandler: RequestHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent';
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
-    const tokenData = getAudioPlayerToken(handlerInput);
-    if (!tokenData) {
-      return handlerInput.responseBuilder
-        .speak('Keine aktuelle Folge.')
-        .getResponse();
-    }
-    const next = getNextEpisode(tokenData.seriesId, tokenData.number);
-    if (!next) {
-      return handlerInput.responseBuilder
-        .speak('Keine weitere Folge.')
-        .getResponse();
-    }
-    return playEpisode(handlerInput, next.id);
+    return seekByOffset(handlerInput, SEEK_OFFSET_MS);
   },
 };
 
@@ -70,18 +103,58 @@ export const PreviousHandler: RequestHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent';
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
+    return seekByOffset(handlerInput, -SEEK_OFFSET_MS);
+  },
+};
+
+export const PlaybackControllerPauseHandler: RequestHandler = {
+  canHandle(handlerInput: HandlerInput): boolean {
+    return handlerInput.requestEnvelope.request.type === 'PlaybackController.PauseCommandIssued';
+  },
+  handle(handlerInput: HandlerInput): Response {
+    return handlerInput.responseBuilder
+      .addAudioPlayerStopDirective()
+      .getResponse();
+  },
+};
+
+export const PlaybackControllerPlayHandler: RequestHandler = {
+  canHandle(handlerInput: HandlerInput): boolean {
+    return handlerInput.requestEnvelope.request.type === 'PlaybackController.PlayCommandIssued';
+  },
+  async handle(handlerInput: HandlerInput): Promise<Response> {
     const tokenData = getAudioPlayerToken(handlerInput);
     if (!tokenData) {
-      return handlerInput.responseBuilder
-        .speak('Keine aktuelle Folge.')
-        .getResponse();
+      return handlerInput.responseBuilder.getResponse();
     }
-    const prev = getPreviousEpisode(tokenData.seriesId, tokenData.number);
-    if (!prev) {
-      return handlerInput.responseBuilder
-        .speak('Keine vorherige Folge.')
-        .getResponse();
-    }
-    return playEpisode(handlerInput, prev.id);
+    return playEpisode(handlerInput, tokenData.episodeId);
+  },
+};
+
+export const PlaybackControllerNextHandler: RequestHandler = {
+  canHandle(handlerInput: HandlerInput): boolean {
+    return handlerInput.requestEnvelope.request.type === 'PlaybackController.NextCommandIssued';
+  },
+  async handle(handlerInput: HandlerInput): Promise<Response> {
+    return seekByOffset(handlerInput, SEEK_OFFSET_MS);
+  },
+};
+
+export const PlaybackControllerPreviousHandler: RequestHandler = {
+  canHandle(handlerInput: HandlerInput): boolean {
+    return handlerInput.requestEnvelope.request.type === 'PlaybackController.PreviousCommandIssued';
+  },
+  async handle(handlerInput: HandlerInput): Promise<Response> {
+    return seekByOffset(handlerInput, -SEEK_OFFSET_MS);
+  },
+};
+
+export const SystemExceptionHandler: RequestHandler = {
+  canHandle(handlerInput: HandlerInput): boolean {
+    return handlerInput.requestEnvelope.request.type === 'System.ExceptionEncountered';
+  },
+  handle(handlerInput: HandlerInput): Response {
+    console.error('System.ExceptionEncountered:', JSON.stringify(handlerInput.requestEnvelope.request));
+    return handlerInput.responseBuilder.getResponse();
   },
 };

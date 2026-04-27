@@ -63,6 +63,22 @@ Resources:
           Projection:
             ProjectionType: ALL
 
+  DeviceStateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: HoerspielDeviceState
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: deviceId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: deviceId
+          KeyType: RANGE
+
 Outputs:
   MediaBucketUrl:
     Description: S3 bucket base URL for Lambda env var S3_BASE_URL
@@ -71,3 +87,7 @@ Outputs:
   ProgressTableName:
     Description: DynamoDB table name for Lambda env var DYNAMODB_TABLE
     Value: !Ref ProgressTable
+
+  DeviceStateTableName:
+    Description: DynamoDB table name for Lambda env var DEVICE_STATE_TABLE
+    Value: !Ref DeviceStateTable

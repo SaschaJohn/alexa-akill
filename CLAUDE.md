@@ -29,6 +29,17 @@ npx ts-node tools/generate-catalog.ts /path/to/hoerspiele
 
 Expected folder structure: `SeriesName/001 - Episode Title.mp3`
 
+## Generate catalog from S3 bucket
+
+```bash
+npx ts-node tools/generate-catalog-s3.ts [bucket-name]
+# defaults to hoerspiel-skill-media
+```
+
+Lists S3 objects, parses filenames, checks for existing covers in `covers/` prefix.
+Writes local `series.json` AND uploads to `s3://bucket/catalog/series.json`.
+Lambda loads catalog from S3 at runtime (cached 5 min) — no redeploy needed after catalog update.
+
 ## Upload MP3s to S3
 
 ```bash

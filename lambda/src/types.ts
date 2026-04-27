@@ -25,3 +25,12 @@ export interface EpisodeProgress {
   offsetMs: number;
   lastPlayed: string;
 }
+
+export interface DeviceState {
+  userId: string;
+  deviceId: string;
+  episodeId: string;
+  seriesId: string;
+  offsetMs: number;
+  lastActive: string;
+}

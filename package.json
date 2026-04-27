@@ -4,7 +4,8 @@
   "private": true,
   "description": "Tools for Hörspiel Player Alexa Skill",
   "dependencies": {
-    "music-metadata": "^10.6.0"
+    "music-metadata": "^10.6.0",
+    "@aws-sdk/client-s3": "^3.500.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

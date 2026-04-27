@@ -28,6 +28,56 @@
             ]
           },
           {
+            "when": "${payload.resumeData != null}",
+            "type": "TouchWrapper",
+            "width": "100%",
+            "onPress": {
+              "type": "SendEvent",
+              "arguments": ["ResumeDevice", "${payload.resumeData.episodeId}"]
+            },
+            "item": {
+              "type": "Container",
+              "width": "100%",
+              "direction": "row",
+              "alignItems": "center",
+              "paddingLeft": "24dp",
+              "paddingRight": "24dp",
+              "paddingTop": "8dp",
+              "paddingBottom": "8dp",
+              "items": [
+                {
+                  "type": "Image",
+                  "source": "${payload.resumeData.coverUrl}",
+                  "width": "56dp",
+                  "height": "56dp",
+                  "borderRadius": "8dp",
+                  "scale": "best-fill"
+                },
+                {
+                  "type": "Container",
+                  "paddingLeft": "16dp",
+                  "grow": 1,
+                  "items": [
+                    {
+                      "type": "Text",
+                      "text": "▶ Fortsetzen",
+                      "fontSize": "18dp",
+                      "fontWeight": "bold",
+                      "color": "#1DB954"
+                    },
+                    {
+                      "type": "Text",
+                      "text": "${payload.resumeData.seriesTitle} — ${payload.resumeData.title}",
+                      "fontSize": "16dp",
+                      "color": "#B3B3B3",
+                      "maxLines": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
             "type": "Container",
             "width": "100%",
             "grow": 1,

@@ -10,7 +10,7 @@ export async function showEpisodeList(
   seriesId: string,
   showAll: boolean = false
 ): Promise<Response> {
-  const series = getSeriesById(seriesId);
+  const series = await getSeriesById(seriesId);
   if (!series) {
     return handlerInput.responseBuilder
       .speak('Serie nicht gefunden.')
@@ -69,7 +69,7 @@ export const SelectSeriesHandler: RequestHandler = {
       return handlerInput.responseBuilder.getResponse();
     }
     const seriesName = request.intent.slots?.seriesName?.value || '';
-    const allSeries = (await import('../util/content')).getAllSeries();
+    const allSeries = await (await import('../util/content')).getAllSeries();
     const match = allSeries.find(
       s => s.title.toLowerCase() === seriesName.toLowerCase()
     );

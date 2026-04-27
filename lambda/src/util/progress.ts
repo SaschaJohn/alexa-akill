@@ -60,6 +60,26 @@ export async function markPlayed(userId: string, episodeId: string, seriesId: st
   }));
 }
 
+export async function getLastPlayingEpisode(userId: string): Promise<EpisodeProgress | null> {
+  const result = await docClient.send(new QueryCommand({
+    TableName: TABLE_NAME,
+    KeyConditionExpression: 'userId = :uid',
+    FilterExpression: '#s = :status',
+    ExpressionAttributeNames: { '#s': 'status' },
+    ExpressionAttributeValues: {
+      ':uid': userId,
+      ':status': 'playing',
+    },
+  }));
+
+  const items = (result.Items as EpisodeProgress[]) || [];
+  if (items.length === 0) return null;
+
+  return items.reduce((latest, item) =>
+    item.lastPlayed > latest.lastPlayed ? item : latest
+  );
+}
+
 export async function markUnplayed(userId: string, episodeId: string, seriesId: string): Promise<void> {
   await docClient.send(new PutCommand({
     TableName: TABLE_NAME,

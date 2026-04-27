@@ -1,6 +1,7 @@
 import { HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 import { savePosition, markPlayed } from '../util/progress';
+import { saveDeviceState } from '../util/device-state';
 import { getNextEpisode, resolveAudioUrl, resolveCoverUrl, getSeriesById } from '../util/content';
 
 function parseToken(token: string): { episodeId: string; seriesId: string; number: number } | null {
@@ -13,6 +14,10 @@ function parseToken(token: string): { episodeId: string; seriesId: string; numbe
 
 function getUserId(handlerInput: HandlerInput): string {
   return handlerInput.requestEnvelope.context.System.user?.userId || '';
+}
+
+function getDeviceId(handlerInput: HandlerInput): string {
+  return handlerInput.requestEnvelope.context.System.device?.deviceId || 'unknown';
 }
 
 export const PlaybackStartedHandler: RequestHandler = {
@@ -32,7 +37,12 @@ export const PlaybackFinishedHandler: RequestHandler = {
     const request = handlerInput.requestEnvelope.request as any;
     const tokenData = parseToken(request.token || '');
     if (tokenData) {
-      await markPlayed(getUserId(handlerInput), tokenData.episodeId, tokenData.seriesId);
+      const userId = getUserId(handlerInput);
+      const deviceId = getDeviceId(handlerInput);
+      await Promise.all([
+        markPlayed(userId, tokenData.episodeId, tokenData.seriesId),
+        saveDeviceState(userId, deviceId, tokenData.episodeId, tokenData.seriesId, 0),
+      ]);
     }
     return handlerInput.responseBuilder.getResponse();
   },
@@ -46,12 +56,13 @@ export const PlaybackStoppedHandler: RequestHandler = {
     const request = handlerInput.requestEnvelope.request as any;
     const tokenData = parseToken(request.token || '');
     if (tokenData) {
-      await savePosition(
-        getUserId(handlerInput),
-        tokenData.episodeId,
-        tokenData.seriesId,
-        request.offsetInMilliseconds || 0
-      );
+      const userId = getUserId(handlerInput);
+      const deviceId = getDeviceId(handlerInput);
+      const offsetMs = request.offsetInMilliseconds || 0;
+      await Promise.all([
+        savePosition(userId, tokenData.episodeId, tokenData.seriesId, offsetMs),
+        saveDeviceState(userId, deviceId, tokenData.episodeId, tokenData.seriesId, offsetMs),
+      ]);
     }
     return handlerInput.responseBuilder.getResponse();
   },
@@ -66,10 +77,10 @@ export const PlaybackNearlyFinishedHandler: RequestHandler = {
     const tokenData = parseToken(request.token || '');
     if (!tokenData) return handlerInput.responseBuilder.getResponse();
 
-    const nextEpisode = getNextEpisode(tokenData.seriesId, tokenData.number);
+    const nextEpisode = await getNextEpisode(tokenData.seriesId, tokenData.number);
     if (!nextEpisode) return handlerInput.responseBuilder.getResponse();
 
-    const series = getSeriesById(tokenData.seriesId);
+    const series = await getSeriesById(tokenData.seriesId);
     if (!series) return handlerInput.responseBuilder.getResponse();
 
     const nextToken = JSON.stringify({
