@@ -23,15 +23,30 @@ export async function saveDeviceState(
   seriesId: string,
   offsetMs: number
 ): Promise<void> {
-  await docClient.send(new PutCommand({
-    TableName: TABLE_NAME,
-    Item: {
-      userId,
-      deviceId,
-      episodeId,
-      seriesId,
-      offsetMs,
-      lastActive: new Date().toISOString(),
-    },
-  }));
+  const now = new Date().toISOString();
+  try {
+    await docClient.send(new PutCommand({
+      TableName: TABLE_NAME,
+      Item: {
+        userId,
+        deviceId,
+        episodeId,
+        seriesId,
+        offsetMs,
+        lastActive: now,
+      },
+      // Conditional write: only update if this write is newer than the stored state.
+      // Prevents race conditions when two events fire close together on the same device.
+      ConditionExpression: 'attribute_not_exists(lastActive) OR lastActive <= :now',
+      ExpressionAttributeValues: {
+        ':now': now,
+      },
+    }));
+  } catch (err: any) {
+    if (err.name === 'ConditionalCheckFailedException') {
+      console.log(`saveDeviceState: skipped stale write for device ${deviceId} (user: ${userId})`);
+      return;
+    }
+    throw err;
+  }
 }
