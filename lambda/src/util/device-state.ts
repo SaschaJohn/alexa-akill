@@ -1,5 +1,5 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, GetCommand, PutCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 import { DeviceState } from '../types';
 
 const TABLE_NAME = process.env.DEVICE_STATE_TABLE || 'HoerspielDeviceState';
@@ -33,5 +33,16 @@ export async function saveDeviceState(
       offsetMs,
       lastActive: new Date().toISOString(),
     },
+  }));
+}
+
+/**
+ * Clear device state after an episode finishes playing.
+ * Prevents the LaunchHandler from suggesting to resume a completed episode.
+ */
+export async function clearDeviceState(userId: string, deviceId: string): Promise<void> {
+  await docClient.send(new DeleteCommand({
+    TableName: TABLE_NAME,
+    Key: { userId, deviceId },
   }));
 }

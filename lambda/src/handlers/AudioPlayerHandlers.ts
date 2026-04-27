@@ -1,7 +1,7 @@
 import { HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 import { savePosition, markPlayed } from '../util/progress';
-import { saveDeviceState } from '../util/device-state';
+import { saveDeviceState, clearDeviceState } from '../util/device-state';
 import { getNextEpisode, resolveAudioUrl, resolveCoverUrl, getSeriesById } from '../util/content';
 
 function parseToken(token: string): { episodeId: string; seriesId: string; number: number } | null {
@@ -40,8 +40,10 @@ export const PlaybackFinishedHandler: RequestHandler = {
       const userId = getUserId(handlerInput);
       const deviceId = getDeviceId(handlerInput);
       await Promise.all([
+        // Mark episode as fully played (not 'playing' with offset 0)
         markPlayed(userId, tokenData.episodeId, tokenData.seriesId),
-        saveDeviceState(userId, deviceId, tokenData.episodeId, tokenData.seriesId, 0),
+        // Clear device state so resume doesn't suggest the finished episode
+        clearDeviceState(userId, deviceId),
       ]);
     }
     return handlerInput.responseBuilder.getResponse();
