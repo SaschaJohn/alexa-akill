@@ -20,3 +20,9 @@ aws s3 sync "$SOURCE" "s3://$BUCKET/" \
   --include "*.png"
 
 echo "Done. Files synced to s3://$BUCKET/"
+
+echo "Regenerating catalog from S3..."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+npx ts-node "$SCRIPT_DIR/generate-catalog-s3.ts" "$BUCKET"
+
+echo "Catalog updated."
