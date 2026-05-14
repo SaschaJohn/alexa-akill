@@ -2,6 +2,7 @@ import { HandlerInput, RequestHandler } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 import { resolveAudioUrl, resolveCoverUrl, getEpisodeById } from '../util/content';
 import { playEpisode } from './PlayEpisodeHandler';
+import { getDeviceState } from '../util/device-state';
 
 const SEEK_OFFSET_MS = 30_000;
 
@@ -78,12 +79,22 @@ export const ResumeHandler: RequestHandler = {
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     const tokenData = getAudioPlayerToken(handlerInput);
-    if (!tokenData) {
-      return handlerInput.responseBuilder
-        .speak('Nichts zum Fortsetzen.')
-        .getResponse();
+    if (tokenData) {
+      return playEpisode(handlerInput, tokenData.episodeId);
     }
-    return playEpisode(handlerInput, tokenData.episodeId);
+
+    const userId = handlerInput.requestEnvelope.session?.user?.userId
+      || handlerInput.requestEnvelope.context.System.user?.userId
+      || '';
+    const deviceId = handlerInput.requestEnvelope.context.System.device?.deviceId || 'unknown';
+    const deviceState = await getDeviceState(userId, deviceId);
+    if (deviceState?.episodeId) {
+      return playEpisode(handlerInput, deviceState.episodeId);
+    }
+
+    return handlerInput.responseBuilder
+      .speak('Nichts zum Fortsetzen.')
+      .getResponse();
   },
 };
 
@@ -124,10 +135,18 @@ export const PlaybackControllerPlayHandler: RequestHandler = {
   },
   async handle(handlerInput: HandlerInput): Promise<Response> {
     const tokenData = getAudioPlayerToken(handlerInput);
-    if (!tokenData) {
-      return handlerInput.responseBuilder.getResponse();
+    if (tokenData) {
+      return playEpisode(handlerInput, tokenData.episodeId);
     }
-    return playEpisode(handlerInput, tokenData.episodeId);
+
+    const userId = handlerInput.requestEnvelope.context.System.user?.userId || '';
+    const deviceId = handlerInput.requestEnvelope.context.System.device?.deviceId || 'unknown';
+    const deviceState = await getDeviceState(userId, deviceId);
+    if (deviceState?.episodeId) {
+      return playEpisode(handlerInput, deviceState.episodeId);
+    }
+
+    return handlerInput.responseBuilder.getResponse();
   },
 };
 

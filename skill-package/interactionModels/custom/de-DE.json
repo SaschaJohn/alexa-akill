@@ -9,7 +9,14 @@
         },
         {
           "name": "AMAZON.ResumeIntent",
-          "samples": []
+          "samples": [
+            "fortsetzen",
+            "weiter",
+            "weiterspielen",
+            "weiterhören",
+            "spiel weiter",
+            "mach weiter"
+          ]
         },
         {
           "name": "AMAZON.NextIntent",
