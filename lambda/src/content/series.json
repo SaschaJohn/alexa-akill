@@ -1,6 +1,180 @@
 {
   "series": [
     {
+      "id": "fu-nf-freunde",
+      "title": "Fünf Freunde",
+      "cover": "covers/fu-nf-freunde.jpg",
+      "episodes": [
+        {
+          "id": "fu-nf-freunde-001",
+          "number": 1,
+          "title": "Beim Wanderzirkus",
+          "file": "Fünf Freunde/001 - Beim Wanderzirkus.mp3",
+          "cover": "covers/fu-nf-freunde-001.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-002",
+          "number": 2,
+          "title": "Im Zeltlager",
+          "file": "Fünf Freunde/002 - Im Zeltlager.mp3",
+          "cover": "covers/fu-nf-freunde-002.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-003",
+          "number": 3,
+          "title": "Und das Burgverlies",
+          "file": "Fünf Freunde/003 - Und das Burgverlies.mp3",
+          "cover": "covers/fu-nf-freunde-003.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-004",
+          "number": 4,
+          "title": "Als Retter in der Not",
+          "file": "Fünf Freunde/004 - Als Retter in der Not.mp3",
+          "cover": "covers/fu-nf-freunde-004.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-005",
+          "number": 5,
+          "title": "Und der Zauberer Wu",
+          "file": "Fünf Freunde/005 - Und der Zauberer Wu.mp3",
+          "cover": "covers/fu-nf-freunde-005.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-006",
+          "number": 6,
+          "title": "Helfen ihrem Kameraden",
+          "file": "Fünf Freunde/006 - Helfen ihrem Kameraden.mp3",
+          "cover": "covers/fu-nf-freunde-006.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-007",
+          "number": 7,
+          "title": "Verfolgen die Strandräuber",
+          "file": "Fünf Freunde/007 - Verfolgen die Strandräuber.mp3",
+          "cover": "covers/fu-nf-freunde-007.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-008",
+          "number": 8,
+          "title": "Und ein Zigeunermädchen",
+          "file": "Fünf Freunde/008 - Und ein Zigeunermädchen.mp3",
+          "cover": "covers/fu-nf-freunde-008.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-009",
+          "number": 9,
+          "title": "Im alten Turm",
+          "file": "Fünf Freunde/009 - Im alten Turm.mp3",
+          "cover": "covers/fu-nf-freunde-009.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-010",
+          "number": 10,
+          "title": "Im Nebel",
+          "file": "Fünf Freunde/010 - Im Nebel.mp3",
+          "cover": "covers/fu-nf-freunde-010.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-011",
+          "number": 11,
+          "title": "Geraten in Schwierigkeiten",
+          "file": "Fünf Freunde/011 - Geraten in Schwierigkeiten.mp3",
+          "cover": "covers/fu-nf-freunde-011.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-012",
+          "number": 12,
+          "title": "Auf der Felseninsel",
+          "file": "Fünf Freunde/012 - Auf der Felseninsel.mp3",
+          "cover": "covers/fu-nf-freunde-012.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-013",
+          "number": 13,
+          "title": "Jagen die Entführer",
+          "file": "Fünf Freunde/013 - Jagen die Entführer.mp3",
+          "cover": "covers/fu-nf-freunde-013.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-014",
+          "number": 14,
+          "title": "Machen eine Entdeckung",
+          "file": "Fünf Freunde/014 - Machen eine Entdeckung.mp3",
+          "cover": "covers/fu-nf-freunde-014.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-015",
+          "number": 15,
+          "title": "Wittern ein Geheimnis",
+          "file": "Fünf Freunde/015 - Wittern ein Geheimnis.mp3",
+          "cover": "covers/fu-nf-freunde-015.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-016",
+          "number": 16,
+          "title": "Auf dem Leuchtturm",
+          "file": "Fünf Freunde/016 - Auf dem Leuchtturm.mp3",
+          "cover": "covers/fu-nf-freunde-016.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-017",
+          "number": 17,
+          "title": "Auf großer Fahrt",
+          "file": "Fünf Freunde/017 - Auf großer Fahrt.mp3",
+          "cover": "covers/fu-nf-freunde-017.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-018",
+          "number": 18,
+          "title": "Auf geheimnisvollen Spuren",
+          "file": "Fünf Freunde/018 - Auf geheimnisvollen Spuren.mp3",
+          "cover": "covers/fu-nf-freunde-018.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-019",
+          "number": 19,
+          "title": "Auf Schmugglerjagd",
+          "file": "Fünf Freunde/019 - Auf Schmugglerjagd.mp3",
+          "cover": "covers/fu-nf-freunde-019.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-020",
+          "number": 20,
+          "title": "Erforschen die Schatzinsel",
+          "file": "Fünf Freunde/020 - Erforschen die Schatzinsel.mp3",
+          "cover": "covers/fu-nf-freunde-020.jpg"
+        },
+        {
+          "id": "fu-nf-freunde-021",
+          "number": 21,
+          "title": "Auf neuen Abenteuern",
+          "file": "Fünf Freunde/021 - Auf neuen Abenteuern.mp3",
+          "cover": "covers/fu-nf-freunde-021.jpg"
+        }
+      ]
+    },
+    {
+      "id": "pummeleinhorn",
+      "title": "Pummeleinhorn",
+      "cover": "covers/pummeleinhorn.png",
+      "episodes": [
+        {
+          "id": "pummeleinhorn-006",
+          "number": 6,
+          "title": "DIE REISE AUF DEM WOLKENSCHIFF",
+          "file": "Pummeleinhorn/006 - DIE REISE AUF DEM WOLKENSCHIFF.mp3"
+        },
+        {
+          "id": "pummeleinhorn-009",
+          "number": 9,
+          "title": "Der Wurzelwicht",
+          "file": "Pummeleinhorn/009 - Der Wurzelwicht.mp3",
+          "cover": "covers/pummeleinhorn-009.jpg"
+        }
+      ]
+    },
+    {
       "id": "tkkg",
       "title": "TKKG",
       "cover": "covers/tkkg.jpg",

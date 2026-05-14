@@ -1,0 +1,32 @@
+{
+  "name": "hoerspiel-admin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npx tsx server/index.ts\" \"npx vite\" --names server,client --prefix-colors blue,green",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.3.0",
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1",
+    "cors": "^2.8.5",
+    "@aws-sdk/client-s3": "^3.500.0",
+    "@aws-sdk/client-dynamodb": "^3.500.0",
+    "@aws-sdk/lib-dynamodb": "^3.500.0",
+    "@aws-sdk/lib-storage": "^3.500.0",
+    "concurrently": "^8.2.0",
+    "tsx": "^4.7.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "@vitejs/plugin-vue": "^5.1.0",
+    "typescript": "^5.4.0",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.0.0"
+  }
+}

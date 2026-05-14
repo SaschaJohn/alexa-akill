@@ -138,7 +138,11 @@ async function main() {
   console.log(`Uploaded to s3://${bucket}/${catalogKey}`);
 }
 
-main().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+export { listAllObjects, buildCatalog };
+
+if (require.main === module) {
+  main().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+}

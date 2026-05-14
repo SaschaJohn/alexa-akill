@@ -6,4 +6,5 @@ dist/
 !ask-resources.json
 .DS_Store
 extracted-covers/
+mp3/
 package-lock.json
